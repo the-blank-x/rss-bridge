@@ -148,6 +148,17 @@ EOL
 				'required' => false
 			),
 
+			'reverse_items' => array(
+				'name' => 'Reverse item order',
+				'title' => <<<"EOL"
+Check this to reverse the items in the feed. Try this if items are not
+sorted in reverse chronological order and there's no date information
+in the page.
+EOL
+				, 'type' => 'checkbox',
+				'required' => false
+			),
+
 		)
 	);
 
@@ -247,5 +258,12 @@ EOL
 		$uri = str_replace('|', '%7C', $uri);
 
 		return $uri;
+	}
+
+	public function collectData() {
+		parent::collectData();
+		if ($this->getInput('reverse_items')) {
+			$this->items = array_reverse($this->items);
+		}
 	}
 }
